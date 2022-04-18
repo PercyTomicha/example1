@@ -1,34 +1,16 @@
-const http = require('http');
+const express = require('express');
+const app = express()
 
-http.createServer( ( request, response ) => {
-    // Para Texto Plano
-    /*
-    response.writeHead(200, { 'Content-Type' : 'text/plain'});
-    response.write('Hola Mundo');
-    */
+app.get('/', function (req, res){
+    res.send('Página de Inicio')
+});
 
-    // Para Objeto Json
-   /*
-    response.writeHead(200, { 'Content-Type' : 'application/json'});
-    const user = {
-        name: 'Percy',
-        last_name: 'Tomicha'
-    }
-    response.write( JSON.stringify( user ));
-    */
+app.get('/hola-mundo', function (req, res){
+    res.send('Hola Mundo')
+});
 
-    // Para archivo .csv
-   response.setHeader('Content-Disposition', 'attachment; filename=Listado.csv');
-   response.writeHead(200, { 'Content-Type' : 'application/csv'});
-   response.write('id;nombre\n');
-   response.write('1;Mario\n');
-   response.write('2;Ferran\n');
-   response.write('3;Juan\n');
-   response.write('4;Jose\n');
+app.get('*', function (req, res){
+    res.send('404 | Page not Found')
+});
 
-   response.end();
-
-})
-.listen(3000);
-
-console.log('Escuchando en el Puerto :', 3000);
+app.listen(3000);
